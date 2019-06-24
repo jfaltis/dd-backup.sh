@@ -9,7 +9,7 @@ function usage() {
 	Backup MOUNT_DIRS to a .img file
 	Example: ./dd-backup.sh -d /media/backup -n /home / /boot
 
-	-d=DIRECTORY,    DIRECTORY where backups will be saved to
+	-d=DIRECTORY,    DIRECTORY where backups will be saved to. Default is the current directory.
 	-n,              Use notify-send to inform the user the backup is completed
 EOF
 }
@@ -33,7 +33,7 @@ i=1
 # for each mount directory supplied as argument
 for mount_dir in "$@"
 do
-	mount_dir=${mount_dir%/} # remove trailing '/'
+	[ "$mount_dir" != "/" ] && mount_dir=${mount_dir%/} # remove trailing '/' if unequal to "/"
 	# get line from df with partition, size and mount directory which matches $mount_dir
 	partition=$(df -BM | awk '{print $1,$2,$6}' | awk '$NF ~ /^'$(echo $mount_dir | sed -e 's/\//\\\//g')'$/')
 

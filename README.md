@@ -25,6 +25,7 @@ Backup **home** partition to current directory and send a notification on finish
 0:13:55 [29,3MiB/s] [29,3MiB/s] [=========================================================] 100%
 ```
 ## Usage
+Make sure not to run the script as root because this prevents the notification from showing up
 ```
 backup.sh [OPTIONS]... [MOUNT_DIRS]...
 
